@@ -4,6 +4,9 @@ public class City {
     public int id;
     public String name;
 
+    public City() {
+    }
+
     public City(int id, String name) {
         this.id = id;
         this.name = name;
@@ -15,9 +18,9 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return '\n' + "City{" +
+                '\t' + "id=" + id +
+                '\t' + ", name='" + name +'\'' + "\t" +
                 '}';
     }
 }

@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 public class CityRepository {
     private Connection getConnection() {
@@ -65,24 +67,36 @@ public class CityRepository {
 
         statement.execute();
 
+        City city = new City();
         ResultSet resultSet = statement.getResultSet();
         while (resultSet.next()) {
             String name = resultSet.getString("name");
-            System.out.println(id + " " + name);
+            city.id = id;
+            city.name = name;
         }
 
         connection.close();
-        return null;
+        return city;
     }
 
-    public void readAll() throws SQLException {
+    public List<City> readAll() throws SQLException {
         Connection connection = getConnection();
-        String sql = "INSERT INTO city (name) VALUES (?)";
+        String sql = "SELECT * FROM city";
         PreparedStatement statement = connection.prepareStatement(sql);
-//        statement.setString(1, city.name);
 
         statement.execute();
+
+        List<City> cities = new ArrayList<>();
+        ResultSet resultSet = statement.getResultSet();
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            City readCity = new City(id, name);
+            cities.add(readCity);
+        }
         connection.close();
+
+        return cities;
     }
 
     public void delete(int id) throws SQLException {

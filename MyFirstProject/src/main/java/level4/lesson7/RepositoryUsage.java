@@ -13,6 +13,8 @@ public class RepositoryUsage {
 //        repository.update(brooklyn);
 //        repository.create(moscow);
 //        repository.delete(5);
-        repository.read(1);
+//        repository.read(1);
+        System.out.println(repository.read(1));
+        System.out.println(repository.readAll());
     }
 }
