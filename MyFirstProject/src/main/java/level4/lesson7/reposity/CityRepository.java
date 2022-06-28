@@ -10,7 +10,7 @@ import java.util.Properties;
 public class CityRepository {
     public void update(City city) throws IOException, ClassNotFoundException, SQLException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("config/jdbc.properties"));
+        properties.load(new FileInputStream("src/main/resources/jdbc.properties"));
         Class.forName(properties.getProperty("driver-class-name"));
 
         String url = properties.getProperty("url");
@@ -29,7 +29,7 @@ public class CityRepository {
 
     public void create(City city) throws IOException, ClassNotFoundException, SQLException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("config/jdbc.properties"));
+        properties.load(new FileInputStream("src/main/resources/jdbc.properties"));
         Class.forName(properties.getProperty("driver-class-name"));
 
         String url = properties.getProperty("url");
