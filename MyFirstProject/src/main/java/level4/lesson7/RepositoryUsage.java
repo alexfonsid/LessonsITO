@@ -9,6 +9,10 @@ public class RepositoryUsage {
     public static void main(String[] args) throws SQLException, IOException, ClassNotFoundException {
         CityRepository repository = new CityRepository();
         City moscow = new City("Moscow");
-        repository.create(moscow);
+        City brooklyn = new City(11, "Brooklyn");
+        repository.update(brooklyn);
+//        repository.create(moscow);
+
+
     }
 }
