@@ -12,7 +12,7 @@ public class RepositoryUsage {
         City brooklyn = new City(11, "ooklyn");
 //        repository.update(brooklyn);
 //        repository.create(moscow);
-        repository.delete(5);
-
+//        repository.delete(5);
+        repository.read(1);
     }
 }

@@ -56,8 +56,33 @@ public class CityRepository {
         connection.close();
     }
 
-    public void read() {
+    public City read(int id) throws SQLException {
         Connection connection = getConnection();
+
+        String sql = "SELECT * FROM city WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+
+        statement.execute();
+
+        ResultSet resultSet = statement.getResultSet();
+        while (resultSet.next()) {
+            String name = resultSet.getString("name");
+            System.out.println(id + " " + name);
+        }
+
+        connection.close();
+        return null;
+    }
+
+    public void readAll() throws SQLException {
+        Connection connection = getConnection();
+        String sql = "INSERT INTO city (name) VALUES (?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+//        statement.setString(1, city.name);
+
+        statement.execute();
+        connection.close();
     }
 
     public void delete(int id) throws SQLException {
