@@ -8,15 +8,33 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 public class CityRepository {
-    public void update(City city) throws IOException, ClassNotFoundException, SQLException {
+    private Connection getConnection() {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/jdbc.properties"));
-        Class.forName(properties.getProperty("driver-class-name"));
+        try {
+            properties.load(new FileInputStream("src/main/resources/jdbc.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            Class.forName(properties.getProperty("driver-class-name"));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         String url = properties.getProperty("url");
         String login = properties.getProperty("login");
         String password = properties.getProperty("password");
-        Connection connection = DriverManager.getConnection(url, login, password);
+
+        try {
+            return DriverManager.getConnection(url, login, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void update(City city) throws SQLException {
+        Connection connection = getConnection();
 
         String sql = "UPDATE city SET name = ? WHERE id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -27,15 +45,8 @@ public class CityRepository {
         connection.close();
     }
 
-    public void create(City city) throws IOException, ClassNotFoundException, SQLException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/jdbc.properties"));
-        Class.forName(properties.getProperty("driver-class-name"));
-
-        String url = properties.getProperty("url");
-        String login = properties.getProperty("login");
-        String password = properties.getProperty("password");
-        Connection connection = DriverManager.getConnection(url, login, password);
+    public void create(City city) throws SQLException {
+        Connection connection = getConnection();
 
         String sql = "INSERT INTO city (name) VALUES (?)";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -45,7 +56,18 @@ public class CityRepository {
         connection.close();
     }
 
-    public void read() {}
+    public void read() {
+        Connection connection = getConnection();
+    }
 
-    public void delete() {}
+    public void delete(int id) throws SQLException {
+        Connection connection = getConnection();
+
+        String sql = "DELETE FROM city WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+
+        statement.execute();
+        connection.close();
+    }
 }
