@@ -18,6 +18,11 @@ public class City {
         this.id = id;
     }
 
+    public City(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public City(String name) {
         this.name = name;
     }
@@ -27,6 +32,6 @@ public class City {
         return "City{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                '}';
+                '}' + "\n";
     }
 }

@@ -25,8 +25,7 @@ public class CityRepository {
     public List<City> getAll() {
         Session session = SessionCreator.getSession();
 //        HQL = Hibernate Query Language
-        List<City> cities = session.createQuery("from City", City.class)
-                .list();
+        List<City> cities = session.createQuery("from City", City.class).list();
         session.close();
         return cities;
     }
@@ -42,8 +41,17 @@ public class CityRepository {
     public void delete(City city) {
         Session session = SessionCreator.getSession();
         Transaction transaction = session.beginTransaction();
-        session.update(city);
+        session.delete(city);
         transaction.commit();
         session.close();
     }
+
+    public void deleteAll() {
+        Session session = SessionCreator.getSession();
+        Transaction transaction = session.beginTransaction();
+//        session.delete();
+        transaction.commit();
+        session.close();
+    }
+
 }
