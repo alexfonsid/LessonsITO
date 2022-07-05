@@ -6,7 +6,8 @@ public class SpringUsage {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("level4.lesson10");
 
-        context.getBean(Message.class);
+        Message message = context.getBean(Message.class);
+        System.out.println(message);
 
     }
 }

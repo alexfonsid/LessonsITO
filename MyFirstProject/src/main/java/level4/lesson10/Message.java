@@ -4,5 +4,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Message {
+    public Message() {
+    }
 
+    @Override
+    public String toString() {
+        return "Message{WTF}";
+    }
 }
